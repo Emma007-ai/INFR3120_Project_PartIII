@@ -25,7 +25,8 @@
     <div class="container-fluid px-4">
 
       <!-- Brand -->
-      <a class="navbar-brand d-flex align-items-center" href="/">
+      <a class="navbar-brand d-flex align-items-center"
+         href="<%= user ? '/' : 'https://magical-profiterole-75787a.netlify.app/' %>">
         <img src="/images/logo.png" class="rc-logo-img me-2" alt="RecipeCraft logo">
         <span class="rc-brand">RecipeCraft</span>
       </a>
@@ -42,17 +43,27 @@
 
         <ul class="navbar-nav align-items-lg-center gap-lg-3">
 
-          <!-- Always Visible Pages -->
+          <!-- HOME (dynamic) -->
           <li class="nav-item">
-            <a class="nav-link nav-link-main" href="https://magical-profiterole-75787a.netlify.app/">Home</a>
+            <a class="nav-link nav-link-main"
+               href="<%= user ? '/' : 'https://magical-profiterole-75787a.netlify.app/' %>">
+              Home
+            </a>
           </li>
 
+          <!-- ABOUT (dynamic) -->
           <li class="nav-item">
-            <a class="nav-link nav-link-main" href="/about">About</a>
+            <a class="nav-link nav-link-main"
+               href="<%= user ? '/about' : 'https://magical-profiterole-75787a.netlify.app/about.html' %>">
+              About
+            </a>
           </li>
 
+          <!-- CONTACT (ALWAYS backend, unchanged) -->
           <li class="nav-item">
-            <a class="nav-link nav-link-main" href="/contact">Contact</a>
+            <a class="nav-link nav-link-main" href="/contact">
+              Contact
+            </a>
           </li>
 
           <!-- Search Bar -->
@@ -71,9 +82,9 @@
             <div id="searchSuggestions" class="search-suggestions"></div>
           </li>
 
-          <!-- AUTHENTICATION NAV -->
+          <!-- AUTH -->
           <% if (!user) { %>
-              <!-- When NOT logged in -->
+              <!-- Logged OUT -->
               <li class="nav-item">
                 <a class="nav-link nav-link-main" href="/login">
                   <i class="fa fa-right-to-bracket me-1"></i>Login
@@ -87,7 +98,7 @@
               </li>
 
           <% } else { %>
-              <!-- When LOGGED in -->
+              <!-- Logged IN -->
               <li class="nav-item">
                 <a class="nav-link nav-link-main" href="/logout">
                   <i class="fa fa-right-from-bracket me-1"></i>Logout
@@ -95,7 +106,7 @@
               </li>
           <% } %>
 
-          <!-- Avatar Placeholder -->
+          <!-- Avatar -->
           <li class="nav-item">
             <a class="nav-avatar" href="#"></a>
           </li>
@@ -107,4 +118,3 @@
 </header>
 
 <main class="main-shell">
-
