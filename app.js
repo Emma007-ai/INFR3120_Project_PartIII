@@ -10,8 +10,6 @@ var logger        = require('morgan');
 const mongoose    = require('mongoose');
 const session     = require('express-session');
 const passport    = require('passport');
-const cors        = require('cors');           // <-- NEW
-const apiRouter   = require('./routes/api');   // <-- NEW
 
 // Passport config
 require('./config/passport')(passport);
@@ -37,10 +35,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ----- CORS for front-end (Netlify/Render) -----
-// This is simple and open; fine for a course project.
-app.use(cors());
-
 // ----- SESSION + PASSPORT -----
 app.use(
   session({
@@ -59,16 +53,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// ----- ROUTES -----
-// Auth routes: /login, /register, /logout
-app.use('/', authRouter);
-
-// Site routes (EJS views)
+// Routes
+app.use('/', authRouter);   // /login, /register, /logout
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-// API routes (for frontend: /api/recipes, /api/contact, etc.)
-app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,4 +73,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
